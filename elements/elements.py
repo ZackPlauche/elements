@@ -30,11 +30,11 @@ class Element(BaseModel):
         return hash(self.element)
     
     @property
-    def driver(self):
+    def driver(self) -> WebDriver:
         return self.element.parent
 
     @classmethod
-    def find(cls, driver: WebDriver):
+    def find(cls, driver: WebDriver) -> 'Element':
         if not cls.selector:
             raise NotImplementedError('Element must have a selector to be found.')
         try:
@@ -44,7 +44,7 @@ class Element(BaseModel):
             raise e
         
     @classmethod
-    def find_all(cls, driver: WebDriver):
+    def find_all(cls, driver: WebDriver) -> list['Element']:
         if not cls.selector:
             raise NotImplementedError('Element must have a selector to be found.')
         elements = driver.find_elements(*cls.selector)
@@ -76,29 +76,29 @@ class Element(BaseModel):
     def get_attribute(self, attribute: str):
         return self.element.get_attribute(attribute)
     
-    def click(self):
+    def click(self) -> None:
         self.element.click()
 
-    def clear(self):
+    def clear(self) -> None:
         self.element.clear()
     
-    def scroll_to_top(self):
+    def scroll_to_top(self) -> None:
         self.driver.execute_script("arguments[0].scrollIntoView({ behavior: 'auto', block: 'start' });", self.element)
 
-    def scroll_to_bottom(self):
+    def scroll_to_bottom(self) -> None:
         self.driver.execute_script("arguments[0].scrollIntoView({ behavior: 'auto', block: 'end' });", self.element)
 
-    def send_keys(self, *value: str):
+    def send_keys(self, *value: str) -> None:
         self.element.send_keys(*value)
 
-    def send_keys_with_emojis(self, message: str):
+    def send_keys_with_emojis(self, message: str) -> None:
         """Send keys with emojis to an element. NOTE: You don't have to have emojis 
         in your message, it just adds the ability to add and send emoji characters
         to your message if you want to.
         """
         self.driver.execute_script("arguments[0].value = arguments[1]", self.element, message)
 
-    def remove(self):
+    def remove(self) -> None:
         """Remove an element from the DOM."""
         self.driver.execute_script("arguments[0].remove()", self.element)
 
@@ -118,13 +118,13 @@ class Element(BaseModel):
                     print(e)
         return self._html
 
-    def update_html(self):
+    def update_html(self) -> None:
         self._html = self.get_html()
 
     def html_has_changed(self) -> bool:
         return self._html != self.get_html()
 
-    def get_html(self):
+    def get_html(self) -> str:
         return self.element.get_attribute('outerHTML')
 
     @property
