@@ -13,7 +13,7 @@ setup(
     url='https://github.com/ZackPlauche/elements',
     author='Zack Plauche',
     author_email='zackknowspython@gmail.com',
-    description='A simple Python package for creating page objects in Python',
+    description='An OOP Python Selenium WebElement wrapper for with convenience methods and a structure for easier working with elements on a page.',
     packages=find_packages(),
     install_requires=required,
 )
