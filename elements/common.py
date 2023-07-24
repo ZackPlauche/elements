@@ -10,7 +10,7 @@ class LazyList(Element):
     lazy_load_wait_time: ClassVar[float] = 0
     scroll_direction: ClassVar[str] = 'down'
 
-    def get_items(self) -> list[item_element]:
+    def get_items(self):
         """Returns all the items on the page."""
         items = []
         previous_items = []
