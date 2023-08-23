@@ -34,7 +34,7 @@ class Element(BaseModel):
         return self.element.parent
 
     @classmethod
-    def find(cls, driver: WebDriver) -> 'Element':
+    def find(cls, driver: WebDriver):
         if not cls.selector:
             raise NotImplementedError('Element must have a selector to be found.')
         try:
@@ -44,7 +44,7 @@ class Element(BaseModel):
             raise e
         
     @classmethod
-    def find_all(cls, driver: WebDriver) -> list['Element']:
+    def find_all(cls, driver: WebDriver):
         if not cls.selector:
             raise NotImplementedError('Element must have a selector to be found.')
         elements = driver.find_elements(*cls.selector)
