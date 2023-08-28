@@ -1,3 +1,4 @@
+from typing import Self
 from typing import ClassVar, Union
 
 from bs4 import BeautifulSoup
@@ -9,6 +10,7 @@ from pydantic import BaseModel, ConfigDict
 
 
 class Selector(BaseModel):
+    """A selector for finding elements."""
     by: str
     value: str
 
@@ -17,6 +19,7 @@ class Selector(BaseModel):
 
 
 class Element(BaseModel):
+    """Base class for all elements."""
     model_config = ConfigDict(arbitrary_types_allowed=True, extra='forbid')
 
     element: WebElement
@@ -64,11 +67,11 @@ class Element(BaseModel):
         except StaleElementReferenceException:
             return False
         
-    def find_element(self, by: str, value: str) -> 'Element':
+    def find_element(self, by: str, value: str) -> Self:
         element = self.element.find_element(by, value)
         return Element(element=element)
         
-    def find_elements(self, by: str, value: str) -> list['Element']:
+    def find_elements(self, by: str, value: str) -> list[Self]:
         elements = self.element.find_elements(by, value)
         if elements:
             return [Element(element=element) for element in elements]
